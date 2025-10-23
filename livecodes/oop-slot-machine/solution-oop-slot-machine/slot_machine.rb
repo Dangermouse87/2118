@@ -23,6 +23,7 @@ class SlotMachine
   # initialize with reels (array)
   def initialize(reels = [])
     @reels = reels
+    @user_score
   end
 
   # create score
@@ -31,15 +32,15 @@ class SlotMachine
     # @user_score += SYMBOLS.index(@reels[0]) + SYMBOLS.index(@reels[1]) + SYMBOLS.index(@reels[2])
     # whether the reels are a 3 of a kind
     if @reels[0] == @reels[1] && @reels[0] == @reels[2]
-      (SYMBOLS.index(@reels[0]) + 1) * 10
+      @user_score = (SYMBOLS.index(@reels[0]) + 1) * 10
     elsif @reels.include?("🤩") && @reels.uniq.length == 2
       # whether the reels are a pair + joker
       # checking if the first reel is a joker, and taking the next reel if it is.
       score_reel = @reels[0] == "🤩" ? @reels[1] : @reels[0]
-      (SYMBOLS.index(score_reel) + 1) * 5
+      @user_score = (SYMBOLS.index(score_reel) + 1) * 5
     else
       # whether it is not the above returns 0
-      0
+      @user_score = 0
     end
   end
 end
